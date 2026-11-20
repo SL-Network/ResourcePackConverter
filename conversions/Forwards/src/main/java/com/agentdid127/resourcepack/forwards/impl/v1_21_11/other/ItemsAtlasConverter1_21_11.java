@@ -394,6 +394,12 @@ public class ItemsAtlasConverter1_21_11 extends Converter {
 					continue;
 				}
 				String path = resource.substring(resource.indexOf(':') + 1);
+				// Reject already-broken RLs (e.g. minecraft:tsf:npc/… from a bad
+				// minecraft: prefix on a custom-ns ref) — aliasing would emit
+				// minecraft:item/tsf:… and poison items.json.
+				if (path.contains(":")) {
+					continue;
+				}
 				if (path.equals("item") || path.startsWith("item/")) {
 					continue;
 				}
@@ -781,7 +787,9 @@ public class ItemsAtlasConverter1_21_11 extends Converter {
 			path = trimmed.substring(colon + 1);
 		}
 		path = path.replaceAll("^/+", "");
-		if (path.isEmpty() || path.equals("item") || path.startsWith("item/")) {
+		// Path must be a single RL path segment tree — no embedded namespaces.
+		if (path.isEmpty() || path.contains(":")
+			|| path.equals("item") || path.startsWith("item/")) {
 			return raw;
 		}
 		String aliased = "item/" + path;
@@ -834,7 +842,8 @@ public class ItemsAtlasConverter1_21_11 extends Converter {
 			path = trimmed.substring(colon + 1);
 		}
 		path = path.replaceAll("^/+", "");
-		if (path.isEmpty()) {
+		// Illegal RLs like minecraft:tsf:npc/… (colon in path) must not become atlas singles.
+		if (path.isEmpty() || path.contains(":") || namespace.isEmpty() || namespace.contains("/")) {
 			return null;
 		}
 		return namespace + ":" + path;

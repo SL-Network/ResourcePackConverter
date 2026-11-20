@@ -572,6 +572,90 @@ def main() -> int:
     else:
         findings.append({"level": "info", "id": "tsf_barney_textures_present", "msg": f"{len(list(tsf_tex.glob('*.png')))} pngs"})
 
+    # Illegal RLs like minecraft:tsf:npc/… (ModelConverter minecraft: prefix on custom ns).
+    bad_tsf_refs: list[str] = []
+    assets_root = pack / "assets"
+    if assets_root.is_dir():
+        for model_path in assets_root.rglob("models/**/*.json"):
+            try:
+                data = load(model_path)
+            except Exception:
+                continue
+            textures = data.get("textures") if isinstance(data, dict) else None
+            if not isinstance(textures, dict):
+                continue
+            for key, raw in textures.items():
+                if not isinstance(raw, str):
+                    continue
+                if "minecraft:tsf:" in raw or "item/tsf:" in raw.replace("\\", "/"):
+                    try:
+                        rel = model_path.relative_to(pack).as_posix()
+                    except ValueError:
+                        rel = str(model_path)
+                    bad_tsf_refs.append(f"{rel}:{key}={raw}")
+                elif ":" in raw:
+                    path_part = raw.split(":", 1)[1]
+                    if ":" in path_part:
+                        try:
+                            rel = model_path.relative_to(pack).as_posix()
+                        except ValueError:
+                            rel = str(model_path)
+                        bad_tsf_refs.append(f"{rel}:{key}={raw}")
+    if bad_tsf_refs:
+        findings.append(
+            {
+                "level": "error",
+                "id": "tsf_invalid_texture_resource_location",
+                "msg": (
+                    "TSF models have illegal texture resource locations "
+                    "(e.g. minecraft:tsf:npc/…); custom namespaces must not get a minecraft: prefix"
+                ),
+                "examples": bad_tsf_refs[:20],
+                "count": len(bad_tsf_refs),
+            }
+        )
+    elif tsf_tex.is_dir():
+        # Spot-check a known Barney suit model keeps a valid tsf: (or tsf:item/) ref.
+        sample = (
+            pack
+            / "assets"
+            / "minecraft"
+            / "models"
+            / "item"
+            / "barney"
+            / "brown_suit"
+            / "head.json"
+        )
+        if sample.is_file():
+            data = load(sample)
+            textures = data.get("textures") if isinstance(data, dict) else None
+            ok_tsf = False
+            if isinstance(textures, dict):
+                for raw in textures.values():
+                    if isinstance(raw, str) and (
+                        raw.startswith("tsf:npc/")
+                        or raw.startswith("tsf:item/npc/")
+                    ):
+                        ok_tsf = True
+                        break
+            if ok_tsf:
+                findings.append(
+                    {
+                        "level": "info",
+                        "id": "tsf_barney_texture_ns_ok",
+                        "msg": "barney brown_suit/head.json keeps valid tsf: texture namespace",
+                    }
+                )
+            else:
+                findings.append(
+                    {
+                        "level": "error",
+                        "id": "tsf_barney_texture_ns_missing",
+                        "msg": "barney brown_suit/head.json missing tsf:npc/ or tsf:item/npc/ texture refs",
+                        "textures": textures,
+                    }
+                )
+
     atlases = pack / "assets" / "minecraft" / "atlases"
     if not atlases.is_dir():
         findings.append(

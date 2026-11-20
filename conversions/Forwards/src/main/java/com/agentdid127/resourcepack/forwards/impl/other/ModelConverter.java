@@ -208,10 +208,12 @@ public class ModelConverter extends Converter {
                         value = value.toLowerCase().replaceAll("[()]", "");
                     }
 
-                    // 1.19.3 Mappings
+                    // 1.19.3 Mappings — prefix bare paths only. Already-namespaced refs
+                    // (e.g. tsf:npc/barney/…) must stay intact; "minecraft:" + "tsf:…"
+                    // produces illegal minecraft:tsf:… resource locations.
                     if (from <= Util.getVersionProtocol(packConverter.getGson(), "1.19.2") &&
                             to >= Util.getVersionProtocol(packConverter.getGson(), "1.19.3")) {
-                        if (!value.startsWith("minecraft:") && !value.startsWith("#")) {
+                        if (!value.startsWith("#") && !value.contains(":")) {
                             value = "minecraft:" + value;
                         }
                     }
@@ -328,7 +330,8 @@ public class ModelConverter extends Converter {
 
                         if (to >= Util.getVersionProtocol(packConverter.getGson(), "1.19.3")
                                 && from < Util.getVersionProtocol(packConverter.getGson(), "1.19.3")) {
-                            if (!parent.startsWith("minecraft:")) {
+                            // Preserve custom namespaces (tsf:…); only prefix bare parents.
+                            if (!parent.startsWith("#") && !parent.contains(":")) {
                                 parent = "minecraft:" + parent;
                             }
                         }

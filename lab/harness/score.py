@@ -2162,6 +2162,89 @@ def check_custom_ns_atlas(pack: Path) -> list[dict]:
     return findings
 
 
+def _invalid_resource_location(raw: str) -> bool:
+    """True when a texture/atlas id has a colon in the path (e.g. minecraft:tsf:npc/…)."""
+    trimmed = raw.replace("\\", "/").strip()
+    if not trimmed or trimmed.startswith("#"):
+        return False
+    if ":" not in trimmed:
+        return False
+    _ns, path = trimmed.split(":", 1)
+    # Embedded namespace in path — the Barney/TSF breakage pattern.
+    return ":" in path
+
+
+def check_invalid_texture_resource_locations(pack: Path, target_hint: str | None) -> list[dict]:
+    """≥1.19.3: model textures and atlas singles must be valid ResourceLocations."""
+    findings: list[dict] = []
+    if not _target_at_least(target_hint, 1, 19, 3):
+        return findings
+
+    bad_models: list[str] = []
+    assets = pack / "assets"
+    if assets.is_dir():
+        for ns in assets.iterdir():
+            if not ns.is_dir():
+                continue
+            models = ns / "models"
+            if not models.is_dir():
+                continue
+            for model_path in models.rglob("*.json"):
+                data = load_json(model_path)
+                if not isinstance(data, dict):
+                    continue
+                textures = data.get("textures")
+                if not isinstance(textures, dict):
+                    continue
+                for key, raw in textures.items():
+                    if not isinstance(raw, str) or not _invalid_resource_location(raw):
+                        continue
+                    try:
+                        rel = f"{ns.name}/{model_path.relative_to(models).as_posix()}"
+                    except ValueError:
+                        rel = str(model_path)
+                    bad_models.append(f"{rel}:{key}={raw}")
+
+    bad_atlas: list[str] = []
+    atlases = pack / "assets" / "minecraft" / "atlases"
+    if atlases.is_dir():
+        for atlas in atlases.glob("*.json"):
+            data = load_json(atlas)
+            for src in data.get("sources") or []:
+                if not isinstance(src, dict):
+                    continue
+                for field in ("resource", "sprite"):
+                    raw = src.get(field)
+                    if isinstance(raw, str) and _invalid_resource_location(raw):
+                        bad_atlas.append(f"{atlas.name}:{field}={raw}")
+
+    if bad_models:
+        findings.append(
+            {
+                "level": "error",
+                "id": "invalid_model_texture_resource_location",
+                "msg": (
+                    "model textures have illegal resource locations (colon in path); "
+                    "usually minecraft: prefixed onto an already-namespaced ref "
+                    "(e.g. minecraft:tsf:npc/…)"
+                ),
+                "examples": bad_models[:20],
+                "count": len(bad_models),
+            }
+        )
+    if bad_atlas:
+        findings.append(
+            {
+                "level": "error",
+                "id": "invalid_atlas_resource_location",
+                "msg": "atlas single resource/sprite ids have illegal resource locations",
+                "examples": bad_atlas[:20],
+                "count": len(bad_atlas),
+            }
+        )
+    return findings
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--pack", required=True, type=Path)
@@ -2193,6 +2276,7 @@ def main() -> int:
     findings.extend(check_trim_palettes_26_3(pack, args.to))
     findings.extend(check_custom_palettes_26_3(pack, args.to))
     findings.extend(check_custom_ns_atlas(pack))
+    findings.extend(check_invalid_texture_resource_locations(pack, args.to))
     findings.extend(check_items_atlas_split(pack, args.to))
     findings.extend(check_duplicate_paletted_sprites(pack, args.to))
     findings.extend(check_model_particle_fallback(pack, args.to))
