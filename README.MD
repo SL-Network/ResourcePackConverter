@@ -1,7 +1,7 @@
 # Resource Pack Converter
 [![](https://jitpack.io/v/agentdid127/ResourcePackConverter.svg)](https://jitpack.io/#agentdid127/ResourcePackConverter)
 
-This is a program that converts most issues with resource packs between any version from 1.7.2 all the way to 1.21.4.
+This is a program that converts most issues with resource packs between any version from 1.7.2 all the way to 26.2.
 
 > **Disclaimer:** This fork is primarily managed by AI. It aims to add improved support for the complex textures used by custom adventure maps and minigame resource packs, and further support for the latest Minecraft versions.
 
