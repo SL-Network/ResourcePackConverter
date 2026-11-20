@@ -170,8 +170,12 @@ public class BlockStateConverter extends Converter {
 
 		if (from <= Util.getVersionProtocol(packConverter.getGson(), "1.19.2")
 				&& to >= Util.getVersionProtocol(packConverter.getGson(), "1.19.3")) {
-			prefix = "minecraft:" + prefix;
-			anyChanges = true;
+			// Idempotent: skip if the model id is already namespaced (e.g. minecraft:block/...).
+			String fullModel = prefix + val;
+			if (!fullModel.contains(":")) {
+				prefix = "minecraft:" + prefix;
+				anyChanges = true;
+			}
 		}
 
 		String result = prefix + val;

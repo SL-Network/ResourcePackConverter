@@ -1,0 +1,13 @@
+{
+  "sources": [
+    {
+      "type": "paletted_permutations",
+      "textures": ["pixel/pixel"],
+      "palette_key": "pixel/white",
+      "permutations": {
+        "stone": "minecraft:pixel/stone",
+        "white": "minecraft:pixel/white"
+      }
+    }
+  ]
+}

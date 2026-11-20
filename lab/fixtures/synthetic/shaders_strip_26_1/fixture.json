@@ -1,0 +1,8 @@
+{
+  "from": "1.21.5",
+  "to": "26.3",
+  "concern": "1.21.5-era core position_* shaders (OpenGL GLSL) must be removed for 26.3 or the pack fails to load",
+  "expect_paths": [
+    "conversion_review.json"
+  ]
+}

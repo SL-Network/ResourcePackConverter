@@ -1,0 +1,7 @@
+{
+  "from": "1.16.5",
+  "to": "1.21.11",
+  "concern": "CMD→items must remain valid through chain to 1.21.11 (format 75.0)",
+  "expect_paths": ["assets/minecraft/items/stick.json"],
+  "notes": "Same pack as overrides_to_items; verifies post-46 hops keep items defs"
+}

@@ -1,0 +1,6 @@
+{
+  "from": "1.20.1",
+  "to": "1.20.2",
+  "concern": "GUI icons.png/widgets.png → gui sprites (pack_format 18)",
+  "expect_paths_notes": "After convert expect assets/minecraft/textures/gui/sprites/ (or sliced gui PNGs). score.py does not yet assert sprites; hop-gui agent should extend checks."
+}

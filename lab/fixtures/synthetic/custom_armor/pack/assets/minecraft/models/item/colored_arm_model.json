@@ -1,0 +1,17 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "models/armor/noxcrew",
+    "layer1": "models/armor/noxcrew_overlay"
+  },
+  "elements": [
+    {
+      "from": [0, 0, 0],
+      "to": [16, 16, 16],
+      "faces": {
+        "north": {"uv": [0, 0, 16, 16], "texture": "#layer0", "tintindex": 0},
+        "south": {"uv": [0, 0, 16, 16], "texture": "#layer1", "tintindex": 0}
+      }
+    }
+  ]
+}

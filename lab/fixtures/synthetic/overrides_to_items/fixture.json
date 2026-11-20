@@ -1,0 +1,7 @@
+{
+  "from": "1.16.5",
+  "to": "1.21.4",
+  "concern": "CMD overrides → assets/minecraft/items/<host>.json (format 46 cliff)",
+  "expect_paths": ["assets/minecraft/items/stick.json"],
+  "notes": "Isolated 1.21.4 cliff. Chain coverage: overrides_to_items_chain →1.21.11"
+}

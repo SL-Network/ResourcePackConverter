@@ -1,0 +1,9 @@
+{
+  "from": "1.21.3",
+  "to": "1.21.11",
+  "concern": "1.21.4+: item/empty_armor_slot_* model refs remap to pack block/transparent",
+  "expect_paths": [
+    "assets/minecraft/models/item/iron_chestplate.json",
+    "assets/minecraft/textures/block/transparent.png"
+  ]
+}

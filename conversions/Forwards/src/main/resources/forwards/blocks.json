@@ -494,5 +494,8 @@
 	},
 	"1_20_3": {
 		"grass": "short_grass"
+	},
+	"1_21_9": {
+		"chain": "iron_chain"
 	}
 }

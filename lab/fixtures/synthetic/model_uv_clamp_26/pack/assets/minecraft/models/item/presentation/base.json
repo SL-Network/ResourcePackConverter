@@ -1,0 +1,14 @@
+{
+  "texture_size": [512, 512],
+  "textures": { "layer0": "item/uv_test" },
+  "elements": [
+    {
+      "from": [0, 0, 0],
+      "to": [16, 16, 16],
+      "faces": {
+        "up": { "uv": [0, 0, 16, 16], "texture": "#layer0" },
+        "down": { "uv": [0, 16.03125, 0, 16], "texture": "#layer0" }
+      }
+    }
+  ]
+}

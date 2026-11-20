@@ -166,5 +166,11 @@
 	},
 	"1_20_3": {
 		"grass": "short_grass"
+	},
+	"1_20_5": {
+		"scute": "turtle_scute"
+	},
+	"1_21_9": {
+		"chain": "iron_chain"
 	}
 }

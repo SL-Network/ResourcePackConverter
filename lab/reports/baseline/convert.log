@@ -1,0 +1,173 @@
+Converting packs from: 754 to 774
+Converting ResourcePack{path=/home/jesse/converter/reports/work/tsf_1.16.5_to_1.21.11/input/tsf_1.16.5}
+Copying existing pack
+  Running Converters
+    Running NameConverter
+    Running PackMetaConverter
+    Running ModelConverter
+      Updating Model: chair_lunch.json
+      Updating Model: elevator.json
+      Updating Model: speaker.json
+      Updating Model: coldster.json
+      Updating Model: gold_nugget.json
+      Updating Model: community_hand.json
+      Updating Model: ladder_door.json
+      Updating Model: ladder_door_frame.json
+      Updating Model: chair_computer_flip.json
+      Updating Model: feather.json
+      Updating Model: monitor_nokey.json
+      Updating Model: small_red_button_pressed_up.json
+      Updating Model: unicorn_hand.json
+      Updating Model: sign_cafeteria_2.json
+      Updating Model: blue_dye.json
+      Updating Model: book_eaten.json
+      Updating Model: whiteboard.json
+      Updating Model: boat.json
+      Updating Model: darkesium.json
+      Updating Model: chair_computer.json
+      Updating Model: noxesium.json
+      Updating Model: small_red_button_up.json
+      Updating Model: redstone.json
+      Updating Model: green_dye.json
+      Updating Model: small_red_button_pressed.json
+      Updating Model: small_red_button.json
+      Updating Model: community_head.json
+      Updating Model: music_disc_blocks.json
+      Updating Model: intercom.json
+      Updating Model: boat_anchor.json
+      Updating Model: big_red_button_pressed.json
+      Updating Model: leather_horse_armor.json
+      Updating Model: rack.json
+      Updating Model: stick.json
+      Updating Model: noxesium_base.json
+      Updating Model: bench.json
+      Updating Model: light_blue_dye.json
+      Updating Model: noxcrew_head.json
+      Updating Model: pink_dye.json
+      Updating Model: monitor.json
+      Updating Model: leather_chestplate.json
+      Updating Model: dark_head.json
+      Skipping Model: halfsize.json
+      Updating Model: white_stained_glass.json
+      Updating Model: flint.json
+      Updating Model: noxesium_trophy_empty.json
+      Updating Model: boat_extra.json
+      Updating Model: globe_base.json
+      Skipping Model: fullsize.json
+      Updating Model: advert.json
+      Updating Model: red_dye.json
+      Updating Model: colored_arm_model.json
+      Updating Model: globe.json
+      Updating Model: iron_axe.json
+      Updating Model: rotating_light.json
+      Updating Model: chair_folding.json
+      Updating Model: orange_dye.json
+      Updating Model: white_dye.json
+      Updating Model: sign_electrical.json
+      Updating Model: diamond_pickaxe.json
+      Updating Model: black_dye.json
+      Updating Model: sign_stairwell.json
+      Updating Model: noxesium_trophy_empty_dark.json
+      Updating Model: remote.json
+      Updating Model: diamond_sword.json
+      Updating Model: scute.json
+      Updating Model: rotating_light_upside_down.json
+      Updating Model: cannon_door.json
+      Updating Model: jetpack.json
+      Updating Model: big_red_button.json
+      Updating Model: labster.json
+      Updating Model: rotating_light_light.json
+      Updating Model: egg.json
+      Updating Model: dark_hand.json
+      Updating Model: sign_cafeteria_1.json
+      Updating Model: elevator_closed.json
+      Updating Model: projector.json
+      Updating Model: noxcrew_hand.json
+      Updating Model: camera_head.json
+      Updating Model: camera_base.json
+      Updating Model: arm_model.json
+      Updating Model: bench_small.json
+      Updating Model: papers.json
+      Updating Model: gray_dye.json
+      Updating Model: pufferfish_bucket.json
+      Updating Model: diamond_hoe.json
+      Updating Model: unicorn_head.json
+      Updating Model: yellow_dye.json
+      Updating Model: chair_lunch.json
+      Updating Model: chair_computer.json
+      Updating Model: vending_red.json
+      Updating Model: table_large.json
+      Updating Model: intercom.json
+      Updating Model: ladder.json
+      Updating Model: monitor.json
+      Updating Model: powered_rail.json
+      Updating Model: chair_folding.json
+      Updating Model: dead_tube_coral.json
+      Updating Model: table_a.json
+      Updating Model: dead_brain_coral.json
+      Updating Model: flare.json
+      Updating Model: vending_blue.json
+    Running BlockStateConverter
+      Converted potatoes.json
+      Converted carrots.json
+      Converted jungle_sapling.json
+      Converted acacia_sapling.json
+      Converted beetroots.json
+      Converted dead_fire_coral.json
+      Converted black_glazed_terracotta.json
+      Converted soul_lantern.json
+      Converted wheat.json
+      Converted spruce_sapling.json
+      Converted shroomlight.json
+      Converted crimson_stairs.json
+      Converted warped_stairs.json
+      Converted birch_sapling.json
+      Converted pumpkin_stem.json
+    Running LangConverter1_13
+    Running ParticlesSlicerConverter1_14
+    Running ParticleConverter1_18
+    Running InventoryConverter
+    Running AtlasConverter1_19_3
+    Running CreativeTabsConverter1_19_3
+    Running EnchantPathConverter1_19_4
+    Running WidgetSlidersCreator1_19_4
+    Running TitleConverter1_20
+    Running GuiSlicerConverter1_20_2
+      Texture 'checkbox.png' doesn't exist, ignoring...
+      Texture 'toasts.png' doesn't exist, ignoring...
+      Texture 'spectator_widgets.png' doesn't exist, ignoring...
+      Texture 'resource_packs.png' doesn't exist, ignoring...
+      Texture 'server_selection.png' doesn't exist, ignoring...
+      Texture 'world_selection.png' doesn't exist, ignoring...
+      Texture 'stream_indicator.png' doesn't exist, ignoring...
+      Texture 'bars.png' doesn't exist, ignoring...
+      Texture 'social_interactions.png' doesn't exist, ignoring...
+      Texture 'book.png' doesn't exist, ignoring...
+      Texture 'recipe_book.png' doesn't exist, ignoring...
+      Texture 'accessibility.png' doesn't exist, ignoring...
+      Texture 'recipe_button.png' doesn't exist, ignoring...
+      Texture 'advancements/tabs.png' doesn't exist, ignoring...
+      Texture 'advancements/widgets.png' doesn't exist, ignoring...
+      Texture 'container/creative_inventory/tabs.png' doesn't exist, ignoring...
+      Texture 'container/anvil.png' doesn't exist, ignoring...
+      Texture 'container/beacon.png' doesn't exist, ignoring...
+      Texture 'container/blast_furnace.png' doesn't exist, ignoring...
+      Texture 'container/brewing_stand.png' doesn't exist, ignoring...
+      Texture 'container/cartography_table.png' doesn't exist, ignoring...
+      Texture 'container/enchanting_table.png' doesn't exist, ignoring...
+      Texture 'container/furnace.png' doesn't exist, ignoring...
+      Texture 'container/gamemode_switcher.png' doesn't exist, ignoring...
+      Texture 'container/grindstone.png' doesn't exist, ignoring...
+      Texture 'container/horse.png' doesn't exist, ignoring...
+      Texture 'container/inventory.png' doesn't exist, ignoring...
+      Texture 'container/loom.png' doesn't exist, ignoring...
+      Texture 'container/smithing.png' doesn't exist, ignoring...
+      Texture 'container/smoker.png' doesn't exist, ignoring...
+      Texture 'container/stats_icons.png' doesn't exist, ignoring...
+      Texture 'container/stonecutter.png' doesn't exist, ignoring...
+      Texture 'container/villager2.png' doesn't exist, ignoring...
+    Running ImageFormatConverter1_20_3
+    Running MapIconSlicerConverter1_20_5
+    Running ArmorMoverConverter1_21_2
+    Running PostEffectShadersConverter1_21_2
+    Running CelestialSlicerUpdater1_21_11

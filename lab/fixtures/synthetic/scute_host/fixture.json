@@ -1,0 +1,10 @@
+{
+  "from": "1.16.5",
+  "to": "1.21.11",
+  "concern": "scute host + CMD must survive rename (turtle_scute) through chain to 1.21.11",
+  "expect_paths": [
+    "assets/minecraft/items/turtle_scute.json",
+    "assets/minecraft/models/item/turtle_scute.json"
+  ],
+  "notes": "Pre-1.20.5 host is scute.json; after rename expect turtle_scute + items def on 1.21.4+"
+}

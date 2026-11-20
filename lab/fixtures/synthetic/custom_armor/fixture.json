@@ -1,0 +1,24 @@
+{
+  "from": "1.16.5",
+  "to": "1.21.11",
+  "concern": "custom armor \u2192 equipment+dyeable; overlay tint strip; leather items dye; models/armor on items atlas; glint; chain\u2192iron_chain",
+  "expect_paths": [
+    "assets/minecraft/textures/entity/equipment/humanoid/iron.png",
+    "assets/minecraft/textures/entity/equipment/humanoid_leggings/iron.png",
+    "assets/minecraft/textures/entity/equipment/humanoid/custom.png",
+    "assets/minecraft/textures/entity/equipment/humanoid_leggings/custom.png",
+    "assets/minecraft/textures/entity/equipment/humanoid/custom_overlay.png",
+    "assets/minecraft/textures/entity/equipment/humanoid/noxcrew.png",
+    "assets/minecraft/textures/entity/equipment/humanoid/noxcrew_overlay.png",
+    "assets/minecraft/textures/models/armor/noxcrew.png",
+    "assets/minecraft/textures/misc/enchanted_glint_armor.png",
+    "assets/minecraft/textures/block/iron_chain.png",
+    "assets/minecraft/textures/item/iron_chain.png",
+    "assets/minecraft/models/item/iron_chain.json",
+    "assets/minecraft/blockstates/iron_chain.json",
+    "assets/minecraft/equipment/noxcrew.json",
+    "assets/minecraft/equipment/custom.json",
+    "assets/minecraft/items/leather_chestplate.json",
+    "assets/minecraft/atlases/items.json"
+  ]
+}

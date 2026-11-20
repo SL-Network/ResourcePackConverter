@@ -1,0 +1,10 @@
+{
+  "from": "1.16.5",
+  "to": "1.21.4",
+  "concern": "textures+overrides-only host → valid block parent after CMD→items/",
+  "expect_paths": [
+    "assets/minecraft/items/white_stained_glass.json",
+    "assets/minecraft/models/item/white_stained_glass.json"
+  ],
+  "notes": "Host model must get minecraft:block/white_stained_glass parent; items/ fallback stays minecraft:item/white_stained_glass"
+}

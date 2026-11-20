@@ -1,0 +1,12 @@
+{
+  "from": "1.16.5",
+  "to": "1.21.11",
+  "concern": "1.21.11: item/CMD models mixing item/ + block/ alias block/ onto items as item/block/ sprite (not same-id)",
+  "expect_paths": [
+    "assets/minecraft/models/item/carrot_on_a_stick.json",
+    "assets/minecraft/models/powerup/gadget.json",
+    "assets/minecraft/textures/item/gadget_face.png",
+    "assets/minecraft/atlases/items.json"
+  ],
+  "notes": "powerup/gadget.json must rewrite block/stone → item/block/stone; items.json single resource=block/stone sprite=item/block/stone"
+}

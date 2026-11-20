@@ -1,0 +1,5 @@
+{
+  "variants": {
+    "age=0": { "model": "minecraft:block/prop_plant" }
+  }
+}

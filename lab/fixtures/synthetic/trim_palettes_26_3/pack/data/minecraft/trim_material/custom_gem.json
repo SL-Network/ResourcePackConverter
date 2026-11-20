@@ -1,0 +1,9 @@
+{
+  "asset_name": "custom_gem",
+  "description": {
+    "translate": "trim_material.minecraft.custom_gem"
+  },
+  "override_armor_assets": {
+    "minecraft:iron": "iron_darker"
+  }
+}

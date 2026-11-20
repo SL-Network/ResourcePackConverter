@@ -1,0 +1,18 @@
+{
+  "from": "1.16.5",
+  "to": "26.1",
+  "concern": "26.1 pack_format 84.0 entity texture layout (flat→folder + variant renames)",
+  "expect_paths": [
+    "assets/minecraft/textures/entity/bat/bat.png",
+    "assets/minecraft/textures/entity/witch/witch.png",
+    "assets/minecraft/textures/entity/armadillo/armadillo.png",
+    "assets/minecraft/textures/entity/cat/cat_tabby.png",
+    "assets/minecraft/textures/entity/rabbit/rabbit_gold.png",
+    "assets/minecraft/textures/entity/pig/pig_cold.png",
+    "assets/minecraft/textures/entity/armorstand/armorstand.png",
+    "assets/minecraft/textures/entity/turtle/turtle.png",
+    "assets/minecraft/textures/entity/projectiles/arrow_tipped.png",
+    "assets/minecraft/textures/entity/projectiles/arrow_spectral.png",
+    "assets/minecraft/textures/entity/projectiles/arrow.png"
+  ]
+}

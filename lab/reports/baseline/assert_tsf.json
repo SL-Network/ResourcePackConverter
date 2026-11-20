@@ -1,0 +1,37 @@
+{
+  "pack": "/home/jesse/converter/reports/work/tsf_1.16.5_to_1.21.11/input/tsf_1.16.5_converted",
+  "to": "1.21.11",
+  "ok": true,
+  "findings": [
+    {
+      "level": "info",
+      "id": "host_ok_yellow_dye",
+      "msg": "yellow_dye via items: 6019 matching refs"
+    },
+    {
+      "level": "info",
+      "id": "host_ok_white_stained_glass",
+      "msg": "white_stained_glass via items: 23 matching refs"
+    },
+    {
+      "level": "info",
+      "id": "host_ok_diamond_sword",
+      "msg": "diamond_sword via items: 3 matching refs"
+    },
+    {
+      "level": "info",
+      "id": "host_ok_diamond_hoe",
+      "msg": "diamond_hoe via items: 34 matching refs"
+    },
+    {
+      "level": "info",
+      "id": "host_ok_light_blue_dye",
+      "msg": "light_blue_dye via items: 190 matching refs"
+    },
+    {
+      "level": "info",
+      "id": "tsf_barney_textures_present",
+      "msg": "20 pngs"
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "from": "1.16.5",
+  "to": "1.21.11",
+  "concern": "custom NS textures need atlases on 1.19.3+; re-check items/blocks atlas split on 1.21.11",
+  "expect_paths": ["assets/minecraft/atlases/blocks.json"],
+  "notes": "demo:npc stays on blocks atlas; dedicated items_atlas_split fixture covers items.json peel"
+}

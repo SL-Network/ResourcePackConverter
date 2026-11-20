@@ -1,0 +1,161 @@
+{
+  "_comment": "Behavioral rules agents must respect. Extend from Minecraft Wiki pack format notes; do not invent.",
+  "formats": {
+    "6": {
+      "versions": ["1.16.2", "1.16.5"],
+      "notes": ["TSF v1.1.5 baseline pack_format"]
+    },
+    "12": {
+      "versions": ["1.19.3"],
+      "rules": [
+        "atlases/ directory controls atlas sources",
+        "textures outside block/ and item/ need atlas coverage or may not render"
+      ]
+    },
+    "18": {
+      "versions": ["1.20.2"],
+      "rules": [
+        "GUI widgets/icons split into textures/gui/sprites/",
+        "supported_formats / overlays possible in pack.mcmeta"
+      ]
+    },
+    "22": {
+      "versions": ["1.20.3", "1.20.4"],
+      "rules": ["grass -> short_grass rename"]
+    },
+    "32": {
+      "versions": ["1.20.5", "1.20.6"],
+      "rules": [
+        "map_icons split",
+        "scute -> turtle_scute (item id, models/item, textures/item) in 1.20.5 / format 32 — confirmed by Minecraft 1.20.5 notes + vanilla 1.20.2→1.21.1 asset diff"
+      ]
+    },
+    "42": {
+      "versions": ["1.21.2", "1.21.3"],
+      "rules": ["equipment models; armor textures move toward entity/equipment"]
+    },
+    "46": {
+      "versions": ["1.21.4"],
+      "rules": [
+        "item model overrides ignored; use assets/<ns>/items/*.json",
+        "custom_model_data must be expressed in new item definitions"
+      ]
+    },
+    "55": {
+      "versions": ["1.21.5"],
+      "rules": [
+        "saddles are equipment; pig/strider overlays move entity/<mob>/<mob>_saddle.png → entity/equipment/<mob>_saddle/saddle.png (25w03a)",
+        "textures/misc/enchanted_glint_entity.png → enchanted_glint_armor.png (item glint unchanged)"
+      ],
+      "evidence": [
+        "knowledge/vanilla/1.21.4 has entity/strider/strider_saddle.png + entity/pig/pig_saddle.png",
+        "knowledge/vanilla/1.21.5+ has entity/equipment/strider_saddle/saddle.png + pig_saddle/saddle.png",
+        "knowledge/renames/1.21.4-1.21.5.json: enchanted_glint_entity.png removed; enchanted_glint_armor.png present",
+        "minecraft.wiki Equipment history 1.21.5 / 25w03a"
+      ]
+    },
+    "63": {
+      "versions": ["1.21.6"],
+      "rules": [
+        "core shader uniforms moved into uniform blocks; packs shipping shaders need updates",
+        "block model rotations no longer limited to multiples of 22.5",
+        "leash sound renames; entity/leashknot/break sound added",
+        "panorama textures must all be the same size and square",
+        "oversized_in_gui item model field; player_head special model type"
+      ],
+      "evidence": [
+        "minecraft.wiki Pack format — resource pack format 63 (1.21.6)"
+      ]
+    },
+    "64": {
+      "versions": ["1.21.7", "1.21.8"],
+      "rules": [
+        "mostly additive textures/sounds/models — prefer rename-diff only; no known structural cliff for adventure packs"
+      ],
+      "evidence": [
+        "minecraft.wiki Pack format — resource pack format 64 (1.21.7 – 1.21.8): Added new textures"
+      ]
+    },
+    "69.0": {
+      "versions": ["1.21.9", "1.21.10"],
+      "rules": [
+        "pack_format becomes major.minor; pack.mcmeta may use min_format / max_format",
+        "block/item sprite chain → iron_chain",
+        "environment/end_flash.png + weather.end_flash; copper block/item assets additive",
+        "some post-processing vertex shaders merged (triangle vs quad); core/lightmap.fsh tweaks"
+      ],
+      "evidence": [
+        "knowledge/renames/1.21.8-1.21.10.json: textures/block/chain.png → textures/block/iron_chain.png; textures/item/chain.png → textures/item/iron_chain.png",
+        "minecraft.wiki Pack format — resource pack format 69.0 (1.21.9 – 1.21.10)"
+      ]
+    },
+    "75.0": {
+      "versions": ["1.21.11"],
+      "rules": [
+        "items atlas split (snapshot format 73.0 / 25w45a): item/ (+ trim item overlays) move from atlases/blocks.json to atlases/items.json (no mipmaps)",
+        "all textures used in an item model must come from the same atlas (items or blocks); block models must use the blocks atlas",
+        "celestial textures under environment/celestial/ (CelestialSlicerUpdater1_21_11)"
+      ],
+      "evidence": [
+        "knowledge/vanilla/1.21.11/assets/minecraft/atlases/items.json",
+        "knowledge/vanilla/1.21.11/assets/minecraft/atlases/blocks.json",
+        "knowledge/renames/1.21.10-1.21.11.json added atlases/items.json",
+        "minecraft.wiki Pack format 73.0 / Atlas history 25w45a"
+      ]
+    },
+    "84.0": {
+      "versions": ["26.1", "26.1.1", "26.1.2"],
+      "rules": [
+        "baby/entity texture layout: many entity textures moved into per-entity folders; baby variants added",
+        "lightmap / shader uniform renames (LightmapInfo: AmbientLightFactor removed into AmbientColor; DarkenWorldFactor → BossOverlayWorldDarkeningFactor)",
+        "item/entity shader split: core/item vs core/entity; some rendertype_* shaders removed/replaced",
+        "item model types gain transformation fields for sub-models",
+        "converter policy: strip pack shaders/core|post|include when converting from ≤1.21.11 → ≥26.1 — OpenGL-era GLSL cannot be reliably auto-ported to RenderPearl/SPIR-V/Vulkan; leaving overrides makes packs unloadable"
+      ],
+      "evidence": [
+        "knowledge/renames/1.21.11-26.1.json: e.g. textures/entity/armadillo.png → textures/entity/armadillo/armadillo.png (+ *_baby.png adds)",
+        "knowledge/vanilla/26.1/assets/minecraft/textures/entity/*/…_baby.png",
+        "minecraft.wiki Pack format — resource pack format 84.0 (26.1 – 26.1.2)"
+      ]
+    },
+    "88.0": {
+      "versions": ["26.2"],
+      "rules": [
+        "beds use block models/textures; minecraft:beds atlas removed",
+        "signs/hanging signs move toward block models; minecraft:signs atlas removed (jar diff)",
+        "minecraft:end_cube model type for end patterns that break under old paths",
+        "text shaders consolidated to core/text (+ core/text_background); translucent moving block → core/block"
+      ],
+      "evidence": [
+        "knowledge/vanilla/26.1 has atlases/beds.json + atlases/signs.json; absent in knowledge/vanilla/26.2",
+        "knowledge/renames/26.1-26.2.json removed_sample includes atlases/beds.json, atlases/signs.json, textures/entity/signs/*",
+        "knowledge/vanilla/26.2/assets/minecraft/models/block/*_bed_*.json and *_hanging_sign_*.json",
+        "minecraft.wiki Pack format — resource pack format 88.0 (26.2)"
+      ]
+    },
+    "97.1": {
+      "versions": ["26.3"],
+      "rules": [
+        "trim color palettes: textures/trims/color_palettes/ → textures/palettes/trim/; trim_palette.png → textures/palettes/trim_base.png",
+        "palette .mcmeta requires palette.base_palette; atlas palette_key/permutations resolve under textures/palettes/ (…/trim_palette → trim_base; …/X → trim/X)",
+        "override_armor_assets in trim materials → equipment trim_overrides (snap1 briefly used trim_palette_replacements; 26.3 jar/wiki final field is trim_overrides)",
+        "trim material asset_name → palette_id (datapack; combined packs)",
+        "armor_trims atlas removed; entity armor trim material textures generated on-demand (item trims still use paletted_permutations on items atlas)"
+      ],
+      "evidence": [
+        "knowledge/renames/26.2-26.3.json: textures/trims/color_palettes/*.png → textures/palettes/trim/*.png; trim_palette.png → palettes/trim_base.png",
+        "knowledge/vanilla/26.3/assets/minecraft/textures/palettes/trim_base.png",
+        "knowledge/vanilla/26.3/assets/minecraft/atlases/items.json palette_key minecraft:trim_base + permutations minecraft:trim/*",
+        "knowledge/vanilla/26.3/assets/minecraft/equipment/iron.json trim_overrides",
+        "knowledge/renames/26.2-26.3.json removed atlases/armor_trims.json",
+        "minecraft.wiki Pack format 97.1 / Equipment history 26.3 snap6; wiki path text may say textures/trim/ — jar uses textures/trims/"
+      ]
+    }
+  },
+  "adventure_hotspots": {
+    "custom_model_data_overrides": "Must become items/*.json for 1.21.4+",
+    "custom_namespace_textures": "Need atlas sources from 1.19.3+",
+    "gui_atlases": "icons.png/widgets.png need slicing from 1.20.2+",
+    "head_display_models": "Often armor-stand mounted; verify pose after convert"
+  }
+}

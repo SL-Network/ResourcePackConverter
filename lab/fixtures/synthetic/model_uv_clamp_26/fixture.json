@@ -1,0 +1,9 @@
+{
+  "from": "1.16.5",
+  "to": "26.1",
+  "concern": "clamp nested Blockbench UVs >16 (item/presentation/) for 26.x FaceBakery",
+  "expect_paths": [
+    "assets/minecraft/models/item/presentation/base.json"
+  ],
+  "notes": "Must recurse into item/presentation/; down UV 16.03125 \u2192 16"
+}

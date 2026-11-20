@@ -1,0 +1,18 @@
+{
+  "id": "spawner-cmd-rewriter",
+  "name": "SpawnerCmdRewriter",
+  "version": "1.0.0-SNAPSHOT",
+  "description": "Rewrites mob-spawner preview CustomModelData for Terra Swoop Force backends",
+  "authors": ["agentdid127"],
+  "dependencies": [
+    {
+      "id": "viaversion",
+      "optional": false
+    },
+    {
+      "id": "packetevents",
+      "optional": false
+    }
+  ],
+  "main": "com.agentdid127.spawnercmd.velocity.SpawnerCmdRewriterVelocityPlugin"
+}

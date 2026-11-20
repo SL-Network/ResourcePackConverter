@@ -1,0 +1,135 @@
+[build] mvn -q -DskipTests package
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::objectFieldOffset has been called by com.google.common.util.concurrent.AbstractFuture$UnsafeAtomicHelper (file:/usr/share/maven/lib/guava.jar)
+WARNING: Please consider reporting this to the maintainers of class com.google.common.util.concurrent.AbstractFuture$UnsafeAtomicHelper
+WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+[build] OK → /home/jesse/converter/converter/Applications/Console/target/ResourcePackConverter-Console-2.2.6.jar
+[build] symlink harness/ResourcePackConverter.jar
+===== L2 TSF (1.16.5 → 1.21.11) =====
+[score] wrote /home/jesse/converter/reports/score_tsf.json
+{
+  "pack": "/home/jesse/converter/reports/work/tsf_1.16.5_to_1.21.11/input/tsf_1.16.5",
+  "name": "tsf",
+  "to": "1.21.11",
+  "ok": false,
+  "error_count": 2,
+  "findings": [
+    {
+      "level": "error",
+      "id": "overrides_without_items_defs",
+      "msg": "1.21.4+ target but overrides remain without assets/minecraft/items/*.json",
+      "hosts": [
+        "gold_nugget",
+        "feather",
+        "blue_dye",
+        "redstone",
+        "green_dye",
+        "music_disc_blocks",
+        "stick",
+        "light_blue_dye",
+        "pink_dye",
+        "white_stained_glass",
+        "red_dye",
+        "iron_axe",
+        "orange_dye",
+        "white_dye",
+        "diamond_pickaxe",
+        "black_dye",
+        "diamond_sword",
+        "scute",
+        "egg",
+        "gray_dye",
+        "pufferfish_bucket",
+        "diamond_hoe",
+        "yellow_dye"
+      ],
+      "host_count": 23
+    },
+    {
+      "level": "error",
+      "id": "custom_ns_textures_without_atlases",
+      "msg": "namespace tsf has non-block/item textures but no assets/minecraft/atlases/",
+      "examples": [
+        "tsf:npc/barney/brown.png",
+        "tsf:npc/barney/npc_barney.png",
+        "tsf:npc/barney/noxcrew.png",
+        "tsf:npc/barney/barneybrows_sad.png",
+        "tsf:npc/barney/pink.png",
+        "tsf:npc/barney/lime.png",
+        "tsf:npc/barney/red.png",
+        "tsf:npc/barney/rainbow.png",
+        "tsf:npc/barney/barneybrows_angry.png",
+        "tsf:npc/barney/magenta.png"
+      ],
+      "count": 24
+    }
+  ]
+}
+[assert_tsf] wrote /home/jesse/converter/reports/assert_tsf.json
+{
+  "pack": "/home/jesse/converter/reports/work/tsf_1.16.5_to_1.21.11/input/tsf_1.16.5",
+  "to": "1.21.11",
+  "ok": false,
+  "findings": [
+    {
+      "level": "info",
+      "id": "host_ok_yellow_dye",
+      "msg": "yellow_dye via overrides: 6019 matching refs"
+    },
+    {
+      "level": "error",
+      "id": "host_still_overrides_yellow_dye",
+      "msg": "yellow_dye still on model overrides; need items/yellow_dye.json for 1.21.11"
+    },
+    {
+      "level": "info",
+      "id": "host_ok_white_stained_glass",
+      "msg": "white_stained_glass via overrides: 22 matching refs"
+    },
+    {
+      "level": "error",
+      "id": "host_still_overrides_white_stained_glass",
+      "msg": "white_stained_glass still on model overrides; need items/white_stained_glass.json for 1.21.11"
+    },
+    {
+      "level": "info",
+      "id": "host_ok_diamond_sword",
+      "msg": "diamond_sword via overrides: 3 matching refs"
+    },
+    {
+      "level": "error",
+      "id": "host_still_overrides_diamond_sword",
+      "msg": "diamond_sword still on model overrides; need items/diamond_sword.json for 1.21.11"
+    },
+    {
+      "level": "info",
+      "id": "host_ok_diamond_hoe",
+      "msg": "diamond_hoe via overrides: 34 matching refs"
+    },
+    {
+      "level": "error",
+      "id": "host_still_overrides_diamond_hoe",
+      "msg": "diamond_hoe still on model overrides; need items/diamond_hoe.json for 1.21.11"
+    },
+    {
+      "level": "info",
+      "id": "host_ok_light_blue_dye",
+      "msg": "light_blue_dye via overrides: 190 matching refs"
+    },
+    {
+      "level": "error",
+      "id": "host_still_overrides_light_blue_dye",
+      "msg": "light_blue_dye still on model overrides; need items/light_blue_dye.json for 1.21.11"
+    },
+    {
+      "level": "info",
+      "id": "tsf_barney_textures_present",
+      "msg": "20 pngs"
+    },
+    {
+      "level": "error",
+      "id": "tsf_needs_atlas",
+      "msg": "tsf:npc textures need atlas coverage on 1.19.3+; no atlases/ dir"
+    }
+  ]
+}

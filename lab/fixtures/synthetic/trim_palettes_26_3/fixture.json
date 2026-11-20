@@ -1,0 +1,13 @@
+{
+  "from": "1.16.5",
+  "to": "26.3",
+  "concern": "26.3 pack_format 97.1 trim palettes move, base_palette mcmeta, armor_trims atlas removed, override_armor_assets → equipment trim_overrides",
+  "expect_paths": [
+    "assets/minecraft/textures/palettes/trim_base.png",
+    "assets/minecraft/textures/palettes/trim/custom_gem.png",
+    "assets/minecraft/textures/palettes/trim/custom_gem.png.mcmeta",
+    "assets/minecraft/textures/palettes/trim/iron_darker.png",
+    "assets/minecraft/equipment/iron.json",
+    "conversion_review.json"
+  ]
+}

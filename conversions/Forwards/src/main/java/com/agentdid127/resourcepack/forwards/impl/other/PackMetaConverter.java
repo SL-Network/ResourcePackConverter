@@ -6,7 +6,10 @@ import com.agentdid127.resourcepack.library.pack.Pack;
 import com.agentdid127.resourcepack.library.utilities.JsonUtil;
 import com.agentdid127.resourcepack.library.utilities.Util;
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -69,45 +72,62 @@ public class PackMetaConverter extends Converter {
 				packObject = new JsonObject();
 			}
 
-			final boolean isGT1_21_10 = to >= Util.getVersionProtocol(gson, "1.21.10");
+			// 1.21.9+ (25w31a): game reads min_format / max_format. A pack that only
+			// has pack_format (even a correct 97.1) is marked incompatible in the UI
+			// while often still loading when forced — which is exactly the confusing
+			// state users hit after converting 1.21.5 → 26.x.
+			final boolean usesMinMaxFormat = to >= Util.getVersionProtocol(gson, "1.21.9");
 
-			packObject.addProperty("pack_format", (int) packVersion);
-			if (from <= Util.getVersionProtocol(gson, "1.20.1")
-					&& to >= Util.getVersionProtocol(gson, "1.20.2")) {
-				final JsonObject fromVersion = Util.getVersionObjectByProtocol(gson, from);
-				final JsonObject toVersion = Util.getVersionObjectByProtocol(gson, to);
-
-				final JsonObject supportedFormats = new JsonObject();
-				if (isGT1_21_10) { // TODO: Simplify
-					supportedFormats.addProperty("min_inclusive", fromVersion != null ? fromVersion.get("pack_format").getAsDouble() : packVersion);
-					supportedFormats.addProperty("max_inclusive", toVersion != null ? toVersion.get("pack_format").getAsDouble() : packVersion);
-				} else {
-					supportedFormats.addProperty("min_inclusive", fromVersion != null ? fromVersion.get("pack_format").getAsInt() : (int) packVersion);
-					supportedFormats.addProperty("max_inclusive", toVersion != null ? toVersion.get("pack_format").getAsInt() : (int) packVersion);
-				}
-
-				packObject.add("supported_formats", supportedFormats);
-			}
-
-			if (from <= Util.getVersionProtocol(gson, "1.21.8") && isGT1_21_10) {
+			if (usesMinMaxFormat) {
+				// Output is for `to` only. Do not emit supported_formats: wiki forbids
+				// it unless the pack also supports resource formats < 65.
+				packObject.remove("supported_formats");
+				// Keep pack_format for tooling / older readers; game prefers min/max.
 				packObject.addProperty("pack_format", packVersion);
-				if (packObject.has("supported_formats")) {
-					JsonObject supportedFormats = packObject.remove("supported_formats").getAsJsonObject();
-					packObject.addProperty("min_format", Math.max(supportedFormats.get("min_inclusive").getAsDouble(), 65.0));
-					packObject.addProperty("max_format", supportedFormats.get("max_inclusive").getAsDouble());
-				}
+				writeMinMaxFormat(packObject, packVersion);
+			} else {
+				packObject.addProperty("pack_format", (int) packVersion);
+				if (from <= Util.getVersionProtocol(gson, "1.20.1")
+						&& to >= Util.getVersionProtocol(gson, "1.20.2")) {
+					final JsonObject fromVersion = Util.getVersionObjectByProtocol(gson, from);
+					final JsonObject toVersion = Util.getVersionObjectByProtocol(gson, to);
 
-				// TODO
-				// For overlay entries:
-				//   - The formats field has been removed
-				//     - If your pack includes any overlay range that includes a pack version with the previous format (data pack < 82, resource pack < 65), it is still required for all overlay definitions
-				//     - Otherwise, it is not allowed and must be removed
-				//   - Added required fields min_format and max_format with the same formats as the fields above with the same name for the pack section
+					final JsonObject supportedFormats = new JsonObject();
+					supportedFormats.addProperty("min_inclusive",
+							fromVersion != null ? fromVersion.get("pack_format").getAsInt() : (int) packVersion);
+					supportedFormats.addProperty("max_inclusive",
+							toVersion != null ? toVersion.get("pack_format").getAsInt() : (int) packVersion);
+					packObject.add("supported_formats", supportedFormats);
+				}
 			}
 
 			json.add("pack", packObject);
 		}
 
 		JsonUtil.writeJson(gson, file, json);
+	}
+
+	/**
+	 * Encode major.minor pack formats the way 1.21.9+ expects: int, or [major, minor].
+	 * A JSON number like 97.1 is not a valid format token — use [97, 1].
+	 * max_format as a bare major means "any minor of that major".
+	 */
+	private static void writeMinMaxFormat(JsonObject packObject, double packVersion) {
+		int major = (int) Math.floor(packVersion);
+		int minor = (int) Math.round((packVersion - major) * 10.0);
+
+		packObject.add("min_format", encodeFormat(major, minor));
+		// Bare major ⇒ any minor (covers 97.0 and 97.1 on a 26.3 client).
+		packObject.addProperty("max_format", major);
+	}
+
+	private static JsonElement encodeFormat(int major, int minor) {
+		if (minor <= 0) {
+			return new JsonPrimitive(major);
+		}
+		JsonArray arr = new JsonArray();
+		arr.add(major);
+		arr.add(minor);
+		return arr;
 	}
 }

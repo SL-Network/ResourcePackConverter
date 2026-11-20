@@ -39,6 +39,12 @@ public class NameConverter extends Converter {
     private final Mapping blockMapping_1_20_3;
     private final Mapping itemMapping1_20_3;
 
+    private final Mapping itemMapping_1_20_5;
+
+    // 1.21.9: chain → iron_chain (pack_format 69.0; knowledge/renames/1.21.8-1.21.10.json)
+    private final Mapping blockMapping_1_21_9;
+    private final Mapping itemMapping_1_21_9;
+
     public NameConverter(PackConverter packConverter, int from, int to) {
         super(packConverter);
 
@@ -63,6 +69,12 @@ public class NameConverter extends Converter {
 
         blockMapping_1_20_3 = new Mapping(gson, "blocks", "1_20_3", false);
         itemMapping1_20_3 = new Mapping(gson, "items", "1_20_3", false);
+
+        // 1.20.5: scute -> turtle_scute (resource pack format 32; confirmed via wiki + vanilla 1.20.2→1.21.1 asset diff)
+        itemMapping_1_20_5 = new Mapping(gson, "items", "1_20_5", false);
+
+        blockMapping_1_21_9 = new Mapping(gson, "blocks", "1_21_9", false);
+        itemMapping_1_21_9 = new Mapping(gson, "items", "1_21_9", false);
     }
 
     @Override
@@ -163,12 +175,43 @@ public class NameConverter extends Converter {
                     renameAll(itemMapping1_20_3, ".json", modelsPath.resolve("item"));
                     renameAll(blockMapping_1_20_3, ".json", modelsPath.resolve("block"));
                 }
+
+                // 1.20.5: scute -> turtle_scute host models
+                if (from < Util.getVersionProtocol(packConverter.getGson(), "1.20.5")
+                        && to >= Util.getVersionProtocol(packConverter.getGson(), "1.20.5")) {
+                    renameAll(itemMapping_1_20_5, ".json", modelsPath.resolve("item"));
+                }
+
+                // 1.21.9: chain -> iron_chain host models
+                if (from < Util.getVersionProtocol(packConverter.getGson(), "1.21.9")
+                        && to >= Util.getVersionProtocol(packConverter.getGson(), "1.21.9")) {
+                    renameAll(itemMapping_1_21_9, ".json", modelsPath.resolve("item"));
+                    renameAll(blockMapping_1_21_9, ".json", modelsPath.resolve("block"));
+                }
+            }
+
+            // 1.20.5: also rename modern items/ defs if already present (e.g. partial packs)
+            if (from < Util.getVersionProtocol(packConverter.getGson(), "1.20.5")
+                    && to >= Util.getVersionProtocol(packConverter.getGson(), "1.20.5")) {
+                Path itemsDefsPath = pack.getWorkingPath().resolve("assets/minecraft/items".replace("/", File.separator));
+                renameAll(itemMapping_1_20_5, ".json", itemsDefsPath);
+            }
+
+            // 1.21.9: items/ + blockstates chain → iron_chain
+            if (from < Util.getVersionProtocol(packConverter.getGson(), "1.21.9")
+                    && to >= Util.getVersionProtocol(packConverter.getGson(), "1.21.9")) {
+                Path itemsDefsPath = pack.getWorkingPath().resolve("assets/minecraft/items".replace("/", File.separator));
+                renameAll(itemMapping_1_21_9, ".json", itemsDefsPath);
             }
 
             // Update BlockStates
             Path blockStates = pack.getWorkingPath().resolve("assets/minecraft/blockstates".replace("/", File.separator));
             if (blockStates.toFile().exists()) {
                 renameAll(blockMapping_1_13, ".json", blockStates);
+                if (from < Util.getVersionProtocol(packConverter.getGson(), "1.21.9")
+                        && to >= Util.getVersionProtocol(packConverter.getGson(), "1.21.9")) {
+                    renameAll(blockMapping_1_21_9, ".json", blockStates);
+                }
             }
 
             // Update textures
@@ -267,6 +310,22 @@ public class NameConverter extends Converter {
                 if (to >= Util.getVersionProtocol(packConverter.getGson(), "1.19")
                         && from < Util.getVersionProtocol(packConverter.getGson(), "1.19")) {
                     renameAll(blockMapping_1_19, ".png", blockPath);
+                }
+
+                // 1.20.5: scute -> turtle_scute item textures
+                if (from < Util.getVersionProtocol(packConverter.getGson(), "1.20.5")
+                        && to >= Util.getVersionProtocol(packConverter.getGson(), "1.20.5")) {
+                    renameAll(itemMapping_1_20_5, ".png", itemPath);
+                    renameAll(itemMapping_1_20_5, ".png.mcmeta", itemPath);
+                }
+
+                // 1.21.9: chain → iron_chain textures (block + item)
+                if (from < Util.getVersionProtocol(packConverter.getGson(), "1.21.9")
+                        && to >= Util.getVersionProtocol(packConverter.getGson(), "1.21.9")) {
+                    renameAll(blockMapping_1_21_9, ".png", blockPath);
+                    renameAll(blockMapping_1_21_9, ".png.mcmeta", blockPath);
+                    renameAll(itemMapping_1_21_9, ".png", itemPath);
+                    renameAll(itemMapping_1_21_9, ".png.mcmeta", itemPath);
                 }
 
                 // 1.13 End Crystals
@@ -438,5 +497,17 @@ public class NameConverter extends Converter {
 
     public Mapping getBlockMapping_1_19() {
         return blockMapping_1_19;
+    }
+
+    public Mapping getItemMapping_1_20_5() {
+        return itemMapping_1_20_5;
+    }
+
+    public Mapping getBlockMapping_1_21_9() {
+        return blockMapping_1_21_9;
+    }
+
+    public Mapping getItemMapping_1_21_9() {
+        return itemMapping_1_21_9;
     }
 }

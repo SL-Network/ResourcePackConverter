@@ -1,0 +1,7 @@
+name: SpawnerCmdRewriter
+main: com.agentdid127.spawnercmd.SpawnerCmdRewriterPlugin
+version: 1.0.0-SNAPSHOT
+api-version: "1.16"
+author: agentdid127
+description: Rewrites mob-spawner preview CustomModelData for modern ViaVersion clients
+depend: [ViaVersion, packetevents]

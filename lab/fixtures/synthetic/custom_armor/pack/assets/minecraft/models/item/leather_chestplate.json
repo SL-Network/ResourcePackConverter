@@ -1,0 +1,7 @@
+{
+  "parent": "item/colored_arm_model",
+  "textures": {
+    "layer0": "models/armor/noxcrew",
+    "layer1": "models/armor/noxcrew_overlay"
+  }
+}

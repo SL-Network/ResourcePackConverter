@@ -1,0 +1,14 @@
+{
+  "from": "1.16.5",
+  "to": "26.2",
+  "concern": "26.2 pack_format 88.0 beds/signs Mojang slicer, atlases removed, pillar sides, obsolete particle models",
+  "expect_paths": [
+    "assets/minecraft/textures/block/purpur_pillar_side.png",
+    "assets/minecraft/textures/block/quartz_pillar_side.png",
+    "assets/minecraft/textures/block/oak_sign.png",
+    "assets/minecraft/textures/block/oak_hanging_sign.png",
+    "assets/minecraft/textures/block/red_bed_head_up.png",
+    "assets/minecraft/textures/block/red_bed_foot_up.png",
+    "conversion_review.json"
+  ]
+}

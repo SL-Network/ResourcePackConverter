@@ -1,0 +1,14 @@
+{
+  "from": "1.16.5",
+  "to": "1.21.11",
+  "concern": "1.21.11 copy+rewrite: block models referencing item/ textures get block/item/ copies; items peel stays clean; namespaced blockstate models stay single-prefixed",
+  "expect_paths": [
+    "assets/minecraft/atlases/items.json",
+    "assets/minecraft/atlases/blocks.json",
+    "assets/minecraft/models/block/prop_plant.json",
+    "assets/minecraft/textures/block/item/prop_block.png",
+    "assets/minecraft/textures/block/item/office_props/b.png",
+    "assets/minecraft/blockstates/shroomlight.json",
+    "assets/minecraft/items/stick.json"
+  ]
+}

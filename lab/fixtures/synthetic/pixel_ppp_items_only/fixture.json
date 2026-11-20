@@ -1,0 +1,11 @@
+{
+  "from": "1.16.5",
+  "to": "1.21.11",
+  "concern": "1.21.11+: item-facing paletted_permutations move to items atlas only (not duplicated on blocks); missing particle filled",
+  "expect_paths": [
+    "assets/minecraft/atlases/items.json",
+    "assets/minecraft/atlases/blocks.json",
+    "assets/minecraft/models/item/map_icon.json",
+    "assets/minecraft/textures/pixel/pixel.png"
+  ]
+}

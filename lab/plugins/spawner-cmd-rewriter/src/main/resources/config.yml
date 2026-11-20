@@ -1,0 +1,2 @@
+# Log successful rewrites (noisy on busy servers).
+debug: false

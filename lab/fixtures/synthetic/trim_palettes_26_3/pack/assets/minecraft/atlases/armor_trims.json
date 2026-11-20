@@ -1,0 +1,15 @@
+{
+  "sources": [
+    {
+      "type": "minecraft:paletted_permutations",
+      "palette_key": "minecraft:trims/color_palettes/trim_palette",
+      "permutations": {
+        "custom_gem": "minecraft:trims/color_palettes/custom_gem",
+        "iron_darker": "minecraft:trims/color_palettes/iron_darker"
+      },
+      "textures": [
+        "minecraft:trims/entity/humanoid/sentry"
+      ]
+    }
+  ]
+}

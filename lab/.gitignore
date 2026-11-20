@@ -1,0 +1,36 @@
+# Build
+**/target/
+*.class
+*.jar
+!harness/**/*.jar
+
+# Large / downloaded
+knowledge/vanilla/
+fixtures/golden/faithful/*.zip
+fixtures/golden/faithful/*/
+reports/*
+!reports/.gitkeep
+!reports/baseline/
+!reports/baseline/**
+!reports/milestone1_status.md
+!reports/milestone2_status.md
+!reports/residuals_123_status.md
+!reports/phase0_foundation.md
+!reports/phase1_status.md
+!reports/phase2_status.md
+!reports/phase3_status.md
+!reports/phase4_status.md
+
+# Workdirs
+.workdir/
+**/__pycache__/
+*.pyc
+.DS_Store
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# Built locally by harness/build.sh (symlink to Applications/Console/target/)
+harness/ResourcePackConverter.jar

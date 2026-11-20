@@ -1,0 +1,6 @@
+total 24
+drwxrwxr-x 3 jesse jesse 4096 Nov 12 21:49 .
+drwxrwxr-x 5 jesse jesse 4096 Nov 12 21:49 ..
+-rw-rw-r-- 1 jesse jesse 7555 Nov 12 21:49 convert.log
+drwxrwxr-x 4 jesse jesse 4096 Nov 12 21:49 input
+-rw-rw-r-- 1 jesse jesse   57 Nov 12 21:49 WORKDIR

@@ -1,0 +1,8 @@
+{
+  "from": "1.16.5",
+  "to": "26.2",
+  "concern": "pre-26.1 pack shaders are stripped on ≥26.1 (RenderPearl/Vulkan); mechanical renames run first then core/post/include are removed",
+  "expect_paths": [
+    "conversion_review.json"
+  ]
+}

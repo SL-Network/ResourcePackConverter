@@ -1,0 +1,10 @@
+{
+  "from": "1.16.5",
+  "to": "1.21.11",
+  "concern": "1.21.11 items vs blocks atlas split (format 75.0 / 73.0): item/ sources must leave blocks.json for items.json",
+  "expect_paths": [
+    "assets/minecraft/atlases/items.json",
+    "assets/minecraft/atlases/blocks.json",
+    "assets/minecraft/items/stick.json"
+  ]
+}

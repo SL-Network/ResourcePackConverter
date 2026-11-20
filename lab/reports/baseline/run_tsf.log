@@ -1,0 +1,74 @@
+[build] mvn -q -DskipTests package
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::objectFieldOffset has been called by com.google.common.util.concurrent.AbstractFuture$UnsafeAtomicHelper (file:/usr/share/maven/lib/guava.jar)
+WARNING: Please consider reporting this to the maintainers of class com.google.common.util.concurrent.AbstractFuture$UnsafeAtomicHelper
+WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+[build] OK → /home/jesse/converter/converter/Applications/Console/target/ResourcePackConverter-Console-2.2.6.jar
+[build] symlink harness/ResourcePackConverter.jar
+===== L2 TSF (1.16.5 → 1.21.11) =====
+[score] wrote /home/jesse/converter/reports/score_tsf.json
+{
+  "pack": "/home/jesse/converter/reports/work/tsf_1.16.5_to_1.21.11/input/tsf_1.16.5_converted",
+  "name": "tsf",
+  "to": "1.21.11",
+  "ok": true,
+  "error_count": 0,
+  "findings": [
+    {
+      "level": "warn",
+      "id": "custom_ns_textures_check_atlas",
+      "msg": "namespace tsf: verify atlases cover non-block/item paths",
+      "examples": [
+        "tsf:npc/barney/brown.png",
+        "tsf:npc/barney/npc_barney.png",
+        "tsf:npc/barney/noxcrew.png",
+        "tsf:npc/barney/barneybrows_sad.png",
+        "tsf:npc/barney/pink.png",
+        "tsf:npc/barney/lime.png",
+        "tsf:npc/barney/red.png",
+        "tsf:npc/barney/rainbow.png",
+        "tsf:npc/barney/barneybrows_angry.png",
+        "tsf:npc/barney/magenta.png"
+      ],
+      "count": 24
+    }
+  ]
+}
+[assert_tsf] wrote /home/jesse/converter/reports/assert_tsf.json
+{
+  "pack": "/home/jesse/converter/reports/work/tsf_1.16.5_to_1.21.11/input/tsf_1.16.5_converted",
+  "to": "1.21.11",
+  "ok": true,
+  "findings": [
+    {
+      "level": "info",
+      "id": "host_ok_yellow_dye",
+      "msg": "yellow_dye via items: 6019 matching refs"
+    },
+    {
+      "level": "info",
+      "id": "host_ok_white_stained_glass",
+      "msg": "white_stained_glass via items: 23 matching refs"
+    },
+    {
+      "level": "info",
+      "id": "host_ok_diamond_sword",
+      "msg": "diamond_sword via items: 3 matching refs"
+    },
+    {
+      "level": "info",
+      "id": "host_ok_diamond_hoe",
+      "msg": "diamond_hoe via items: 34 matching refs"
+    },
+    {
+      "level": "info",
+      "id": "host_ok_light_blue_dye",
+      "msg": "light_blue_dye via items: 190 matching refs"
+    },
+    {
+      "level": "info",
+      "id": "tsf_barney_textures_present",
+      "msg": "20 pngs"
+    }
+  ]
+}

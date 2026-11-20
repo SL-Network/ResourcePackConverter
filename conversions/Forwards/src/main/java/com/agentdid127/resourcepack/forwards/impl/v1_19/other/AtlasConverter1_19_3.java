@@ -14,11 +14,19 @@ import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.LinkedHashSet;
 import java.util.Objects;
+import java.util.Set;
 
+/**
+ * Generates assets/minecraft/atlases/blocks.json when crossing the 1.19.3 atlas cliff.
+ * Directory sources are namespace-agnostic (source "npc" stitches every namespace's
+ * textures/npc). Scans all assets/&lt;ns&gt;/textures so custom namespaces (demo, tsf)
+ * get coverage for paths outside textures/block and textures/item.
+ */
 public class AtlasConverter1_19_3 extends Converter {
-    JsonObject out = new JsonObject();
-    JsonArray sources = new JsonArray();
+    private final Set<String> directorySources = new LinkedHashSet<>();
+    private final Set<String> singleSources = new LinkedHashSet<>();
 
     public AtlasConverter1_19_3(PackConverter packConverter) {
         super(packConverter);
@@ -31,53 +39,91 @@ public class AtlasConverter1_19_3 extends Converter {
 
     @Override
     public void convert(Pack pack) throws IOException {
-        Path atlasesPath = pack.getWorkingPath().resolve("assets/minecraft/atlases".replace("/", File.separator));
-        if (!atlasesPath.toFile().exists()) {
-            atlasesPath.toFile().mkdirs();
+        directorySources.clear();
+        singleSources.clear();
+
+        Path assetsPath = pack.getWorkingPath().resolve("assets");
+        if (!Files.isDirectory(assetsPath)) {
+            return;
         }
 
-        Path texturesPath = pack.getWorkingPath().resolve("assets/minecraft/textures".replace("/", File.separator));
-        File texturesFile = texturesPath.toFile();
-        if (texturesFile.exists()) {
-            for (File file : Objects.requireNonNull(texturesFile.listFiles())) {
-                JsonObject source = new JsonObject();
-                if (file.isDirectory()) {
-                    source.addProperty("type", "directory");
-                    source.addProperty("source", file.getName());
-                    source.addProperty("prefix", file.getName() + "/");
-                    sources.add(source);
-                    findFiles(texturesPath.resolve(file.getName()), file.getName());
-                } else if (file.getName().endsWith(".png")) {
-                    source.addProperty("type", "single");
-                    source.addProperty("resource", file.getName().replaceAll("\\.png", ""));
-                    sources.add(source);
-                }
+        File[] namespaces = assetsPath.toFile().listFiles();
+        if (namespaces == null) {
+            return;
+        }
+
+        for (File nsDir : namespaces) {
+            if (!nsDir.isDirectory()) {
+                continue;
             }
+            Path texturesPath = nsDir.toPath().resolve("textures");
+            if (!Files.isDirectory(texturesPath)) {
+                continue;
+            }
+            scanTextureRoot(texturesPath);
+        }
 
-            out.add("sources", sources);
+        if (directorySources.isEmpty() && singleSources.isEmpty()) {
+            return;
+        }
 
-            File output = atlasesPath.resolve("blocks.json").toFile();
-            if (!output.exists()) {
-                OutputStream os = Files.newOutputStream(output.toPath());
+        Path atlasesPath = pack.getWorkingPath().resolve("assets/minecraft/atlases".replace("/", File.separator));
+        if (!Files.exists(atlasesPath)) {
+            Files.createDirectories(atlasesPath);
+        }
+
+        JsonObject out = new JsonObject();
+        JsonArray sources = new JsonArray();
+        for (String dir : directorySources) {
+            JsonObject source = new JsonObject();
+            source.addProperty("type", "directory");
+            source.addProperty("source", dir);
+            source.addProperty("prefix", dir + "/");
+            sources.add(source);
+        }
+        for (String resource : singleSources) {
+            JsonObject source = new JsonObject();
+            source.addProperty("type", "single");
+            source.addProperty("resource", resource);
+            sources.add(source);
+        }
+        out.add("sources", sources);
+
+        Path output = atlasesPath.resolve("blocks.json");
+        if (!Files.exists(output)) {
+            try (OutputStream os = Files.newOutputStream(output)) {
                 os.write(packConverter.getGson().toJson(out).getBytes(StandardCharsets.UTF_8));
-                os.close();
             }
         }
     }
 
-    public void findFiles(Path directory, String prefix) {
+    private void scanTextureRoot(Path texturesPath) {
+        File texturesFile = texturesPath.toFile();
+        File[] children = texturesFile.listFiles();
+        if (children == null) {
+            return;
+        }
+        for (File file : children) {
+            if (file.isDirectory()) {
+                String name = file.getName();
+                directorySources.add(name);
+                findFiles(texturesPath.resolve(name), name);
+            } else if (file.getName().endsWith(".png")) {
+                singleSources.add(file.getName().replaceAll("\\.png$", ""));
+            }
+        }
+    }
+
+    private void findFiles(Path directory, String prefix) {
         File directoryFile = directory.toFile();
-        if (directoryFile.isDirectory()) {
-            for (File file : Objects.requireNonNull(directoryFile.listFiles())) {
-                JsonObject source = new JsonObject();
-                if (file.isDirectory()) {
-                    source.addProperty("type", "directory");
-                    source.addProperty("source", prefix + "/" + file.getName());
-                    source.addProperty("prefix", prefix + "/" + file.getName() + "/");
-                    sources.add(source);
-                    String nextPrefix = prefix + "/" + file.getName();
-                    findFiles(directory.resolve(file.getName()), nextPrefix);
-                }
+        if (!directoryFile.isDirectory()) {
+            return;
+        }
+        for (File file : Objects.requireNonNull(directoryFile.listFiles())) {
+            if (file.isDirectory()) {
+                String nextPrefix = prefix + "/" + file.getName();
+                directorySources.add(nextPrefix);
+                findFiles(directory.resolve(file.getName()), nextPrefix);
             }
         }
     }

@@ -355,6 +355,10 @@
 		"protocol_version": 772,
 		"pack_format": 64
 	},
+	"1.21.9": {
+		"protocol_version": 773,
+		"pack_format": 69.0
+	},
 	"1.21.10": {
 		"protocol_version": 773,
 		"pack_format": 69.0
@@ -362,5 +366,25 @@
 	"1.21.11": {
 		"protocol_version": 774,
 		"pack_format": 75.0
+	},
+	"26.1": {
+		"protocol_version": 775,
+		"pack_format": 84.0
+	},
+	"26.1.1": {
+		"protocol_version": 775,
+		"pack_format": 84.0
+	},
+	"26.1.2": {
+		"protocol_version": 775,
+		"pack_format": 84.0
+	},
+	"26.2": {
+		"protocol_version": 776,
+		"pack_format": 88.0
+	},
+	"26.3": {
+		"protocol_version": 777,
+		"pack_format": 97.1
 	}
 }
