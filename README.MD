@@ -3,6 +3,8 @@
 
 This is a program that converts most issues with resource packs between any version from 1.7.2 all the way to 1.21.4.
 
+> **Disclaimer:** This fork is primarily managed by AI. It aims to add improved support for the complex textures used by custom adventure maps and minigame resource packs, and further support for the latest Minecraft versions.
+
 This should convert most things, but if you notice anything that does not work correctly, or should be added, create an issue on Github.
 
 Also if any other developers would like to open any PRs with fixes and additions please feel free.
